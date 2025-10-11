@@ -39,9 +39,11 @@ app.get("/listings", async (req,res) =>{
 });
 
 // New Route 
-app.get("/listings/new", (req,res) =>{
-    res.render("./listings/new.ejs");
+// Show new listing form
+app.get("/listings/new", (req, res) => {
+  res.render("listings/new", { listing: {} }); // pass an empty object
 });
+
 
 // Show Route 
 app.get("/listings/:id", async (req,res) =>{
@@ -52,6 +54,7 @@ app.get("/listings/:id", async (req,res) =>{
 
 // Create Route
 app.post("/listings", async (req,res) =>{
+    console.log(req.body.listing);
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
